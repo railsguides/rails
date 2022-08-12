@@ -1,0 +1,29 @@
+<% content_for :page_title, "Ruby on Rails 指南" %>
+<% content_for :description, "Ruby on Rails 指南" %>
+
+<% content_for :header_section do %>
+<%= render 'welcome' %>
+<% end %>
+
+<% content_for :index_section do %>
+<div id="subCol">
+  <dl>
+    <dt></dt>
+    <% unless @edge -%>
+      <dd class="kindle">Rails 指南也提供 <%= link_to 'Kindle', @epub %> 版本。</dd>
+    <% end -%>
+    <dd class="work-in-progress">带有此标志的指南表示正在紧张的编写过程中，同时也表示该指南不会出现在指南索引菜单内。但是这并不是说该指南无用，他们可能内容不全或者还有些瑕疵。您可以帮助审查、评论和纠错。</dd>
+  </dl>
+</div>
+<% end %>
+
+<% documents_by_section.each do |section| %>
+  <h3><%= section['name'] %></h3>
+  <dl>
+    <% section['documents'].each do |document| %>
+      <%= guide(document['name'], document['url'], work_in_progress: document['work_in_progress']) do %>
+        <p><%= document['description'] %></p>
+      <% end %>
+    <% end %>
+  </dl>
+<% end %>
